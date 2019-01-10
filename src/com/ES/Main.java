@@ -40,18 +40,31 @@ public class Main {
             }
         }*/
 
-        String encodedFileName = EDC.encodeFile("in.txt", publicKeyFileName);
-        System.out.println(encodedFileName);
+        //String encodedFileName = EDC.encodeFile("in.txt", publicKeyFileName);
+        //System.out.println(encodedFileName);
 
-        System.out.println(EDC.decodeArray(encodedFileName, privateKeyFileName));
+        //System.out.println(EDC.decodeArray(encodedFileName, privateKeyFileName));
 
         String strToSign = "Is this the real life? Is this just fantasy?";
         String strToCheck = "It is not real life. It's just a fantasy.";
 
-        String signature = EDC.signString(strToSign, privateKeyFileName);
+        System.out.println("Source string: \"" + strToSign +"\"\n");
 
-        System.out.println(EDC.checkSignature(strToSign, signature, publicKeyFileName));
-        System.out.println(EDC.checkSignature(strToCheck, signature, publicKeyFileName));
+        String signature = EDC.signString(strToSign, privateKeyFileName);
+        System.out.println("String is signed. Signature was put to file with name " + signature + ".\n");
+
+        System.out.println("Checking signature with the same string: " + strToSign);
+        if (EDC.checkSignature(strToSign, signature, publicKeyFileName))
+            System.out.println("Signature test is passed.");
+        else
+            System.out.println("Signature test is failed.");
+        System.out.println();
+
+        System.out.println("Checking signature with the other string: " + strToCheck);
+        if (EDC.checkSignature(strToCheck, signature, publicKeyFileName))
+            System.out.println("Signature test is passed.");
+        else
+            System.out.println("Signature test is failed.");
 
     }
 }
